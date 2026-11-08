@@ -69,9 +69,32 @@ font-size:14px;box-shadow:0 0 16px #ff9b3b55}
 .progress{position:absolute;z-index:20;top:0;left:0;height:3px;width:0;background:#ffd36e}
 @media(max-width:380px){.photo-grid{gap:8px}.photo-frame{padding:5px}.photo-frame img{height:190px}.scene{padding:20px 14px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:5s!important;transition-duration:.3s!important}}
+
+/* Diwali Music Button */
+#musicBtn {
+  position: fixed;
+  top: 18px;
+  right: 15px;
+  z-index: 9999;
+  padding: 12px 18px;
+  border: 1px solid gold;
+  border-radius: 30px;
+  background: #38152f;
+  color: #ffe5a0;
+  font-size: 14px;
+  cursor: pointer;
+}
+  
 </style>
 </head>
 <body>
+  
+<button id="musicBtn">🎵 Play Music</button>
+
+<audio id="bgMusic" loop>
+  <source src="diwali-music.mp3" type="audio/mpeg">
+</audio>
+  
 <div id="app">
 <div class="progress" id="progress"></div>
 <section class="scene active" id="s1">
@@ -200,5 +223,25 @@ function play() {
 document.getElementById("replay").addEventListener("click",play);
 play();
 </script>
+  
+<script>
+const musicBtn = document.getElementById("musicBtn");
+const music = document.getElementById("bgMusic");
+
+musicBtn.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      musicBtn.textContent = "⏸ Pause Music";
+    } catch (error) {
+      musicBtn.textContent = "🎵 Tap to Play";
+    }
+  } else {
+    music.pause();
+    musicBtn.textContent = "🎵 Play Music";
+  }
+});
+</script>
+  
 </body>
 </html>
